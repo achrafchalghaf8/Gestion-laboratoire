@@ -1,0 +1,136 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+<style>
+    /* Style the form container */
+    .form-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+        background-color: #f9f9f9;
+    }
+
+    /* Style the form fields */
+    .form-container label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"], 
+    .form-container input[type="email"],
+    .form-container input[type="file"],
+      .form-container select.form-control 
+ {
+        width: 100%;
+        padding: 12px 20px;
+        margin-bottom: 20px;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style the submit button */
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+.form-container label {
+    font-weight: normal;
+}
+    /* Style error messages */
+    .form-container .error {
+        color: red;
+        margin-top: 5px;
+    }
+    .form-container textarea {
+  width: 100%;
+  height: 150px; /* ajuster en fonction de la hauteur souhaitée */
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+</style>
+<div class="form-container">
+    {{ form_start(formChercheur) }}
+
+    {# <label for="{{ formChercheur.nom_prenom.vars.id }}">Nom et prénom :</label>
+    {{ form_widget(formChercheur.nom_prenom, {'attr': {'placeholder': 'Nom et prénom'}}) }}
+    <span style="color:red;">{{ form_errors(formChercheur.nom_prenom) }}</span> #}
+
+    {# <label for="{{ formChercheur.compte.vars.id }}">Compte :</label> 
+ {{ form_widget(formChercheur.compte, {'class': 'form-control','attr': {'id': 'chercheur_compte'}}) }}  #}
+    {{ form_row(formChercheur.compte, {'attr': {'class': 'form-control','placeholder': "Compte "}})}}
+    <span style="color:red;">{{ form_errors(formChercheur.compte) }}</span>
+
+    <label for="{{ formChercheur.adresse.vars.id }}">Adresse :</label>
+    {{ form_widget(formChercheur.adresse , {'attr': {'placeholder': 'Adresse'}})}}
+    <span style="color:red;">{{ form_errors(formChercheur.adresse) }}</span>
+{# 
+    <label for="{{ formChercheur.email.vars.id }}">Email :</label>
+    {{ form_widget(formChercheur.email, {'attr': {'placeholder': 'Adresse Mail'}}) }}
+    <span style="color:red;">{{ form_errors(formChercheur.email) }}</span> #}
+
+    <label for="{{ formChercheur.biographie.vars.id }}">Biographie :</label>
+    {{ form_widget(formChercheur.biographie, {'attr': {'placeholder': 'Biographie'}}) }}
+    <span style="color:red;">{{ form_errors(formChercheur.biographie) }}</span>
+
+    {# <label for="{{ formChercheur.telephone.vars.id }}">Téléphone :</label>
+    {{ form_widget(formChercheur.telephone, {'attr': {'placeholder': 'Téléphone'}}) }}
+    <span style="color:red;">{{ form_errors(formChercheur.telephone) }}</span> #}
+
+    <label for="{{ formChercheur.profession.vars.id }}">Profession :</label>
+    {{ form_widget(formChercheur.profession, {'attr': {'placeholder': 'Profession'}}) }}
+    <span style="color:red;">{{ form_errors(formChercheur.profession) }}</span>
+
+    <label for="{{ formChercheur.image.vars.id }}">Image :</label>
+    {{ form_widget(formChercheur.image) }}
+    <span style="color:red;">{{ form_errors(formChercheur.image) }}</span>
+
+{# {{ form_row(formChercheur.image, {'label': 'Choisir un fichier'}) }} #}
+
+
+<div style="text-align: right;">
+    <input type="submit" value="{{valeurBtnSubmit|default("Ajouter chercheur") }}" class="btn btn-primary" formnovalidate>
+</div>
+{{ form_end(formChercheur)}}
+
+
+</div>
+{# // <script>
+//   const form = document.querySelector('.form-container form');
+//   form.addEventListener('submit', (event) => {
+//     const nomPrenom = form.querySelector('#{{ formChercheur.nom_prenom.vars.id }}');
+//     const compte = form.querySelector('#{{ formChercheur.compte.vars.id }}');
+//     const adresse = form.querySelector('#{{ formChercheur.adresse.vars.id }}');
+//     const biographie = form.querySelector('#{{ formChercheur.biographie.vars.id }}');
+//     const profession = form.querySelector('#{{ formChercheur.profession.vars.id }}');
+//     const image = form.querySelector('#{{ formChercheur.image.vars.id }}');
+
+    
+//     if (!nomPrenom.value || !compte.value || !adresse.value || !biographie.value || !profession.value || !image.value) {
+//       event.preventDefault();
+      
+//       Swal.fire({
+//         icon: 'error',
+//         title: 'Remplir tous les champs, s\'il vous plaît!',
+//       });
+//     }
+//   });
+// </script> #}

@@ -1,0 +1,101 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+<style>
+    /* Style the form container */
+    .form-container {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+        background-color: #f9f9f9;
+        position: relative; /* add position relative to parent element */
+    }
+
+    /* Style the form fields */
+    .form-container input[type="text"],
+    .form-container input[type="number"], 
+    .form-container input[type="email"],
+    .form-container input[type="file"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style the submit button */
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute; /* add position absolute to button */
+        bottom: 20px; /* distance from bottom of the parent element */
+        right: 20px; /* distance from right of the parent element */
+    }
+
+    /* Clear floats after the form */
+    .form-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    h1 {
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+</style>
+<div class="form-container">
+{{ form_start(formChercheur)}}
+
+{{ form_row(formChercheur.users)}}
+
+
+{{ form_row(formChercheur.adresse, {'attr': {'placeholder': "Adresse "}})}}
+{# {{ form_row(formChercheur.email, {'attr': {'placeholder': "Email "}})}} #}
+{{ form_row(formChercheur.biographie, {'attr': {'placeholder': "Biographie"}})}}
+
+{# {{ form_row(formChercheur.telephone, {'attr': {'placeholder': "telephone"}})}} #}
+{{ form_row(formChercheur.projets, {'attr': {'placeholder': "Projets"}})}}
+
+
+{{ form_row(formChercheur.profession, {'attr': {'placeholder': "Profession "}})}}
+{{ form_row(formChercheur.image, {'label': 'Choisir un fichier'}) }}
+<br><br>
+
+
+<input type="submit" value="{{valeurBtnSubmit|default("Ajouter chercheur") }}" class="btn btn-primary" formnovalidate>
+
+{{ form_end(formChercheur)}}
+
+</div>
+<script>
+  const form = document.querySelector('.form-container form');
+  form.addEventListener('submit', (event) => {
+    const nomConference = form.querySelector('#{{ formConference.nom_conference.vars.id }}');
+    const dateDebut = form.querySelector('#{{ formConference.date_debut.vars.id }}');
+    const duree = form.querySelector('#{{ formConference.dure.vars.id }}');
+    const lieu = form.querySelector('#{{ formConference.lieu.vars.id }}');
+    const domaine = form.querySelector('#{{ formConference.domaine.vars.id }}');
+    const sponsors = form.querySelector('#{{ formConference.sponseurs.vars.id }}');
+    const nbParticipants = form.querySelector('#{{ formConference.nb_participants.vars.id }}');
+    
+    if (!nomConference.value || !dateDebut.value || !duree.value || !lieu.value || !domaine.value || !sponsors.value || !nbParticipants.value) {
+      event.preventDefault();
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Remplir tous les champs, s\'il vous plaît!',
+      });
+    }
+  });
+</script>

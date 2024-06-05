@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}chercheurs {% endblock %}
+{% block body %}
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-q0ZYA1GjGMv2QWgfH8yCD3eObGkq1VQBOHjUd7nUcF6u/7VfLkNzK9VlYAzPTzRDrxozj4sb4NG+04ZyyPbZwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card {
+  width: 250px;
+  margin: 20px;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+</style>
+  <h1>Votre profil</h1>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="search-results">
+    {% for cher in chercheurs %}
+{% if cher.compte.id == app.user.id %}
+        <div class="col mb-4">
+          <div class="card h-100">
+            <a href="{{ path('chercheur_show', {id: cher.id}) }}">
+              <img src="{{ asset('uploads/' ~ cher.image) }}" class="card-img-top" alt="Chercheur Image">
+            </a>
+            <div class="card-body text-center">
+  <h5 class="card-title">{{ cher.compte }}</h5>
+  <br>
+  <div class="d-flex justify-content-center">
+    <a href="{{ path('profil_edit',{id:cher.id}) }}" class="btn btn-primary">Modifier mon profil</a>
+  </div>
+</div> 
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+</div>
+</div><br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}
+
+

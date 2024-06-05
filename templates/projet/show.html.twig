@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ projet.titre }}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="{{ asset('uploads/' ~ projet.image) }}" alt="Image de projet" style="display: block; margin: 0 auto; width: 100%; padding: 0;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>{{ projet.titre  }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p><strong>Date début :</strong> {{ projet.date_debut|date('Y-m-d') }}</p>
+            <p><strong>Date fin :</strong> {{ projet.date_fin|date('Y-m-d') }}</p>
+            <p><strong>Membres de l'equipe :</strong> {% for cher in projet.chercheurs %}
+                                                             {{ cher }}/
+                                                              {% endfor %} </p>
+
+            
+
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <hr>
+            <h3>Description du projet</h3>
+<div style="text-align: justify; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; padding: 10px; margin: 10px;">
+  <p style="text-indent: 20px;">{{ projet.description }}</p>
+</div>
+
+   <div class="row">
+        <div class="col-md-12 text-center">
+            <hr>
+            <h3>Description du résultats</h3>
+<div style="text-align: justify; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; padding: 10px; margin: 10px;">
+  <p style="text-indent: 20px;">{{ projet.description_resultat }}</p>
+</div>
+
+
+            <hr>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>Actions</h3>
+            <p>
+                <a href="{{ path('projet_edit', {id: projet.id}) }}" class="btn btn-primary">Modifier</a>
+            <a href="{{ path('projet_delete', {id: projet.id}) }}" onclick="return confirm('Etes vous sur de supprimer ce projet??')" class="btn btn-danger">Supprimer</a>
+            <a href="{{ path('app_projet') }}" class="btn btn-secondary">Liste des projets</a>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</div>    </div>
+</div><br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

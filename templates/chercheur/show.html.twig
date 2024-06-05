@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ chercheur.compte }}
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <td><img src="{{ asset('uploads/' ~ chercheur.image) }}" alt="Chercheur Image" style="max-width: 250px; display: block; margin: 0 auto;"></td>
+
+                    <div class="card-body">
+                        <h2 class="card-title">{{ chercheur.compte }}</h2>
+                        <hr>
+                        <p class="card-text">Adresse : {{ chercheur.Adresse }}</p>
+                        <p class="card-text">Email : {{ chercheur.compte.getEmail() }}</p>
+                        <p class="card-text">Téléphone : {{ chercheur.compte.getTelephone() }}</p>
+                        <p class="card-text">Profession : {{ chercheur.Profession }}</p>      
+                        <p class="card-text">projets : 
+                        {% for pro in chercheur.projets %}
+                                                             {{ pro }}/
+                                                              {% endfor %} 
+                                                              
+                            {# {% for projet in projets %}
+    {% for cher in projet.liste_chercheurs %}
+        {% if chercheur == cher %}
+            {{ projet.titre }}/
+        {% endif %}
+    {% endfor %}
+{% endfor %} #}
+
+
+
+</p>
+                        <p class="card-text">Biographie : {{ chercheur.Biographie }}</p>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                          {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('chercheur_edit',{id:chercheur.id}) }}" class="btn btn-primary">Modifier</a>
+                            <a href="{{ path('chercheur_delete',{id:chercheur.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce chercheur ?')" class="btn btn-danger">Supprimer</a>
+                            {% endif %}
+                            <a href="{{ path('app_home') }}" class="btn btn-secondary"> <--</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div><br><br>
+    {% include 'footer.html.twig' %}
+
+{% endblock %}

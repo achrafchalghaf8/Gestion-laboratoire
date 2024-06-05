@@ -1,0 +1,122 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+
+<style>
+    /* Style the form container */
+    .form-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+        background-color: #f9f9f9;
+    }
+
+    /* Style the form fields */
+    .form-container input[type="text"], 
+    .form-container input[type="email"],
+    .form-container input[type="number"],
+    .form-container input[type="file"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style the submit button */
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    /* Clear floats after the form */
+    .form-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    h1 {
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+</style>
+<div class="form-container">
+    {{ form_start(formMateriel, { 'attr': { 'enctype': 'multipart/form-data' } }) }}
+<div class="form-group">
+    {{ form_label(formMateriel.numero_inventaire, 'Numéro inventaire') }}
+    {{ form_widget(formMateriel.numero_inventaire, { 'attr': { 'placeholder': 'Numéro inventaire', 'class': 'form-control' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formMateriel.numero_inventaire) }}</span>
+</div>
+
+<div class="form-group">
+    {{ form_label(formMateriel.designation, 'Désignation') }}
+    {{ form_widget(formMateriel.designation, { 'attr': { 'placeholder': 'Désignation', 'class': 'form-control' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formMateriel.designation) }}</span>
+</div>
+
+<div class="form-group">
+    {{ form_label(formMateriel.specifications, 'Spécifications') }}
+    {{ form_widget(formMateriel.specifications, { 'attr': { 'placeholder': 'Spécifications', 'class': 'form-control' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formMateriel.specifications) }}</span>
+</div>
+
+<div class="form-group">
+    {{ form_label(formMateriel.quantite, 'Quantité') }}
+    {{ form_widget(formMateriel.quantite, { 'attr': { 'placeholder': 'Quantite', 'class': 'form-control' } }) }}
+    {% if form_errors(formMateriel.quantite) %}
+    <span class="text-danger error" style="color: red;">{{ form_errors(formMateriel.quantite) }}</span>
+{% endif %}
+</div>
+
+<div class="form-group">
+    {{ form_label(formMateriel.instruc_utilisation, 'Instructions utilisation') }}
+    {{ form_widget(formMateriel.instruc_utilisation, { 'attr': { 'placeholder': 'Instructions utilisation', 'class': 'form-control', 'rows': '5' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formMateriel.instruc_utilisation) }}</span>
+</div>
+
+<div class="form-group">
+    {{ form_label(formMateriel.image, 'Image') }}
+    {{ form_widget(formMateriel.image, { 'attr': { 'class': 'form-control-file' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formMateriel.image) }}</span>
+</div>
+
+<input type="submit" value="{{ valeurBtnSubmit|default('Ajouter Matériel') }}" class="btn btn-primary" formnovalidate>
+
+{{ form_end(formMateriel) }}
+</div>
+
+{# // <script>
+//   const form = document.querySelector('.form-container form');
+//   form.addEventListener('submit', (event) => {
+//     const numSerie = form.querySelector('#{{ formMateriel.num_serie.vars.id }}');
+//     const designation = form.querySelector('#{{ formMateriel.designation.vars.id }}');
+//     const specifications = form.querySelector('#{{ formMateriel.specifications.vars.id }}');
+//     const quantite = form.querySelector('#{{ formMateriel.quantite.vars.id }}');
+    
+//     if (!numSerie.value || !designation.value || !specifications.value || !quantite.value) {
+//       event.preventDefault();
+      
+//       Swal.fire({
+//         icon: 'error',
+//         title: 'Remplir tous les champs, s\'il vous plaît!',
+//       });
+//     }
+//   });
+// </script> #}
+
+
+    {# <input type="submit" value="{{ valeurBtnSubmit|default("Ajouter Materiel") }}" formnovalidate> #}
+
+   

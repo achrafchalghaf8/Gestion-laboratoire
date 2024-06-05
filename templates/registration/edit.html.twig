@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier utilisateur
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+	<h1 style="text-align:center;">Modification d'un utilisateur</h1>
+
+{{ include ("registration/register.html.twig",{valeurBtnSubmit:"Mettre à jour l'utilisateur'"})}}
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier une reservation
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification d'une reservation</h1> #}
+
+{{ include ("reservation/_form.html.twig",{valeurBtnSubmit:"Mettre a jour la reservation"})}}
+</div></div> <br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

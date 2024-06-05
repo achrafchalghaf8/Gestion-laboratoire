@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}compte{% endblock %}
+
+{% block body %}
+
+<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<style>
+			body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #333333;
+			text-align: center;
+			margin-top: 50px;
+		}
+		table {
+			margin: auto;
+			border-collapse: collapse;
+			width: 80%;
+			margin-top: 30px;
+			margin-bottom: 50px;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		a {
+			color: #4CAF50;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #333333;
+			text-decoration: underline;
+		}
+		.search-box {
+			text-align: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+		#search-input {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			width: 60%;
+			font-size: 16px;
+			color: #333333;
+		}
+		.edit-link {
+			color: #3A6BF9;
+			text-decoration: none;
+			margin-right: 10px;
+		}
+		.delete-link {
+			color: #ff4d4d;
+			text-decoration: none;
+		}
+		.fa-edit:before {
+			content: "\f044";
+			margin-right: 5px;
+			color: #3A6BF9;
+		}
+		.fa-trash:before {
+			content: "\f2ed";
+			margin-right: 5px;
+			color: #ff4d4d;
+		}
+	.publications-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .publications-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .publication {
+    flex-basis: 30%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+
+  .publication:last-child {
+    margin-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    .publications-row {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .publication {
+      flex-basis: 100%;
+      margin-right: 0;
+    }}
+	</style>
+<head>
+  <title>Informations du compte</title>
+</head>
+<h1>Informations du compte</h1> <br><br>
+{# <div class="search-box">
+  <input type="text" id="search-input" placeholder="Recherche d'une publication">
+</div> #}
+
+  
+<div class="publications-container">
+  {% for i in users|batch(3) %}
+    <div class="publications-row">
+      {% for us in i %}
+{% if us.getNomPrenom()== app.user.nom_prenom %}
+
+        <div class="publication" style="border: 1px solid gray; padding: 20px; margin-right: 20px;">
+          <h2>{{ us.nom_prenom }}</h2>
+          <p><strong>Nom et prenom :</strong> {{ us.nom_prenom }}</p>
+          <p><strong>Email :</strong> {{ us.email }}</p>
+		  <p><strong>Telephone :</strong> {{ us.telephone }}</p>
+<div style="text-align: center;">
+    <button class="btn btn-primary" onclick="window.location.href='{{ path('modification_infos', {id: us.id}) }}'">Modifier mes informations</button>
+</div>
+
+ </div>
+		{% endif %}
+		
+      {% endfor %}
+    </div>
+	
+  {% endfor %}
+</div>
+
+
+ 
+</body>
+
+<script>
+  const searchInput = document.querySelector('#search-input');
+
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    const publications = document.querySelectorAll('.publication');
+
+    publications.forEach(publication => {
+      const title = publication.querySelector('h2').textContent.toLowerCase();
+      const author = publication.querySelector('p:nth-of-type(1)').textContent.toLowerCase();
+      const date = publication.querySelector('p:nth-of-type(2)').textContent.toLowerCase();
+      const match = title.includes(filter) || author.includes(filter) || date.includes(filter);
+
+      publication.style.display = match ? '' : 'none';
+    });
+  });
+</script>
+
+</div>
+</div><br><br>
+{% include 'footer.html.twig' %}
+{% endblock %}

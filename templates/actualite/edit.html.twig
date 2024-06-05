@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier  actualite
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification d'une actualite</h1> #}
+
+{{ include ("actualite/_form.html.twig",{valeurBtnSubmit:"Mettre à jour l'actualité"})}}
+</div>
+</div>
+</div>
+<br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

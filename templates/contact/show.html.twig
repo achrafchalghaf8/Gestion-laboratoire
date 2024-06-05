@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ contact.nom }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ contact.nom }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Nom :</strong></div>
+                            <div class="col-sm-8">{{ contact.nom }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Email :</strong></div>
+                            <div class="col-sm-8">{{ contact.email }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Sujet :</strong></div>
+                            <div class="col-sm-8">{{ contact.sujet }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Message :</strong></div>
+                            <div class="col-sm-8">{{ contact.message }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Date ajout :</strong></div>
+                            <div class="col-sm-8">{{ contact.date_contact|date('Y-m-d') }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{{ path('contact_delete',{id:contact.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sur de supprimer ce contact?')">Supprimer</a>
+                    <a href="{{ path('liste_contact') }}" class="btn btn-secondary float-right">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div></div></div>
+<br><br>
+    {% include 'footer.html.twig' %}
+
+{% endblock %}

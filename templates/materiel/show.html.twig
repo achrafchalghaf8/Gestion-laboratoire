@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ materiel.designation }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">{{ materiel.designation }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{ asset('uploads/' ~ materiel.image) }}" alt="Materiel Image" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="card-subtitle mb-2">Caractéristiques</h4>
+                                <p><strong>Designation:</strong> {{ materiel.designation }}</p>
+                                <p><strong>Instructions d'utilisation:</strong> {{ materiel.instruc_utilisation }}</p>
+                                <p><strong>Spécifications:</strong> {{ materiel.specifications }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <div class="card-footer">
+                        <a href="{{ path('materiel_edit', { 'id': materiel.id }) }}" class="btn btn-primary">Modifier</a>
+                        <a href="{{ path('materiel_delete', { 'id': materiel.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce matériel ?')" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('app_materiel') }}" class="btn btn-secondary">Liste des matériels</a>
+                        <a href="{{ path('materiel_reserver', { 'id': materiel.id }) }}" class="btn btn-primary">Ajouter reservation</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if is_granted('ROLE_CHERCHEUR') %}
+        <div class="card-footer">
+                        <a href="{{ path('materiel_reservation', { 'id': materiel.id }) }}" class="btn btn-primary">Reserver</a>
+        </div>
+                {% endif %}
+               
+                
+
+                 {% if is_granted('ROLE_ETUDIANT') %}
+        <div class="card-footer">
+                        <a href="{{ path('materiel_reservation', { 'id': materiel.id }) }}" class="btn btn-primary">Reserver</a>
+        </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div></div></div><br><br>
+
+    {% include 'footer.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,110 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+<style>
+    /* Style the form container */
+      .form-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+        background-color: #f9f9f9;
+    }
+
+    /* Style the form fields */
+    .form-container input[type="text"],
+    .form-container input[type="number"], 
+    .form-container input[type="email"] ,
+    .form-container input[type="file"],
+   .form-container input[type="textarea"]
+{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style the submit button */
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    /* Clear floats after the form */
+    .form-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    h1 {
+        font-size: 36px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    textarea {
+        min-height: 100px; /* hauteur minimale */
+        height: auto; /* hauteur automatique */
+        max-height: 300px; /* hauteur maximale */
+        overflow-y: auto; /* barre de défilement automatique en cas de dépassement */
+        resize: vertical;
+    }
+
+.form-description {
+  height: 250px; /* ajuster la hauteur en fonction de vos besoins */
+}
+</style>
+
+<div class="form-container">
+    {{ form_start(formLaboratoire, {'method': 'PUT'}) }}
+    
+    Nb:L'ajout s'effectue une seule fois puis vous pouvez modifier seulement la page.
+    definition de laboratoire <br>
+    Definition du laboratoire
+    
+    {{ form_widget(formLaboratoire.definition, {'attr': {'class': 'form-control form-description', 'placeholder': "Définition de laboratoire", 'style': 'width: 100%; margin: 0 auto;', 'rows': '5' }}) }}
+    {% if formLaboratoire.definition.vars.errors|length > 0 %}
+        <span style="color: red;">{{ formLaboratoire.definition.vars.errors|first.message }}</span>
+    {% endif %}
+    <div class="form-group">
+    {{ form_label(formLaboratoire.image, 'Image du laboratoire') }}
+    {{ form_widget(formLaboratoire.image, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(formLaboratoire.image) %}
+        <span style="color:red;">{{ form_errors(formLaboratoire.image) }}</span>
+    {% endif %}
+</div>
+    
+    <input type="submit" value="{{valeurBtnSubmit|default("Ajouter laboratoire") }}" class="btn btn-primary" formnovalidate>
+    
+    {{ form_end(formLaboratoire) }}
+</div>
+
+{# // <script>
+//   const form = document.querySelector('.form-container form');
+
+//   form.addEventListener('submit', (event) => {
+//     const definition = form.querySelector('#{{ formLaboratoire.definition.vars.id }}');
+//     const image = form.querySelector('#{{ formLaboratoire.image.vars.id }}');
+
+//     if (!definition.value || !image.value) {
+//       event.preventDefault();
+
+//       Swal.fire({
+//         icon: 'error',
+//         title: 'Remplir tous les champs, s\'il vous plaît!',
+//       });
+//     }
+//   });
+// </script> #}

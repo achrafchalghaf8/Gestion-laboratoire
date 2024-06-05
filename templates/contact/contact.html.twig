@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+ <div class="map-container" style="width: 100%; height: 500px;">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.1000041420046!2d10.752195214689204!3d34.73835738038844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1301d19d1c0c0bab%3A0xbf1fffa099f0c850!2sCentre%20de%20recherche%20en%20Num%C3%A9rique%20de%20Sfax!5e0!3m2!1sen!2stn!4v1652759639978!5m2!1sen!2stn" style="border:0; width: 100%; height: 100%;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+  <br>
+  <div class="form-container" style="width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: center;">
+    <h1>Contact</h1>
+
+    {{ form_start(contactForm) }}
+      <div class="form-field">
+        {{ form_label(contactForm.nom) }}
+        {{ form_widget(contactForm.nom) }}
+      </div>
+
+      <div class="form-field">
+        {{ form_label(contactForm.email) }}
+        {{ form_widget(contactForm.email) }}
+      </div>
+
+      <div class="form-field">
+        {{ form_label(contactForm.sujet) }}
+        {{ form_widget(contactForm.sujet) }}
+      </div>
+
+      <div class="form-field">
+        {{ form_label(contactForm.message) }}
+        {{ form_widget(contactForm.message) }}
+      </div>
+
+      <button type="submit" class="form-button">Envoyer</button>
+    {{ form_end(contactForm) }}
+  </div>
+</div>
+
+</div>
+
+  
+</div>
+</div>
+
+</div>
+  </div>
+  </div></div></div><br><br><br>
+
+  {% include 'footer.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+{% block title %}Matériels{% endblock %}
+{% block body %}
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+
+	<style>
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.search-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#search-input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#search-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product {
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  text-align: center;
+}
+
+.product-image img {
+  max-width: 100%;
+}
+
+.product-info h3 {
+  margin-top: 0;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.product-info p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+
+
+
+  .product {
+    width: calc(33.33% - 10px);
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* center the content */
+  }
+
+  
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product {
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
+}
+
+.product-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-image img {
+  height: 100%;
+}
+
+.product-info {
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.product-info-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+}
+ .card-footer {
+        text-align: center;
+    }
+    
+    .card-footer .btn {
+        margin: 5px;
+    }
+   .btn i {
+  color: white;
+}
+
+		a:hover {
+			color: #333333;
+			text-decoration: underline;
+		}
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+
+
+
+	</style>
+
+
+<div class="container">
+  <h1>Liste de matériels</h1>
+
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Recherche d'un matériel">
+  </div>
+
+  <div class="products-container">
+    {% for mat in materiels %}
+      <div class="product">
+        <a href="{{ path('materiel_show', {id: mat.id}) }}">
+          <div class="product-image" onclick="showProductDetails({{ mat.id }})">
+            <img src="{{ asset('uploads/' ~ mat.image) }}" alt="Materiel Image">
+          </div>
+        </a>
+        <div class="product-info">
+          <div class="product-info-inner">
+            <h3>{{ mat.designation }}</h3>
+          </div>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="card-footer">
+          <a href="{{ path('materiel_edit', {id: mat.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+          <a href="{{ path('materiel_delete', {id: mat.id}) }}" onclick="return confirm('Etes-vous sûr de supprimer ce materiel ?')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+          <a href="{{ path('materiel_show', {id: mat.id}) }}" class="btn btn-secondary"><i class="fas fa-eye"></i></a>
+        </div>
+        {% endif %}
+        
+
+
+         
+
+      </div>
+      
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+ const searchInput = document.querySelector('#search-input');
+
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    const products = document.querySelectorAll('.product');
+
+    products.forEach(product => {
+      const title = product.querySelector('h3').textContent.toLowerCase();
+      const match = title.includes(filter);
+
+      product.style.display = match ? '' : 'none';
+    });
+  });
+</script>
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}
+
+

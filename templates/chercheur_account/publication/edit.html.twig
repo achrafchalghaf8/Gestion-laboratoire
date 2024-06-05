@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier d'une publication
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification d'une publication</h1> #}
+
+{{ include ("chercheur_account/publication/_form.html.twig",{valeurBtnSubmit:"Mettre à jour la publication"})}}
+</div>
+</div> <br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

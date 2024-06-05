@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affecter un rôle à un utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Affecter un rôle à {{ user.nom }} {{ user.prenom }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.roles) }}
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+    {{ form_end(form) }}
+{% endblock %}

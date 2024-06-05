@@ -1,0 +1,21 @@
+
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Nouvel Utilisateur
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+{% block body %}
+
+	{# <h1 style="text-align:center;">Ajouter utilisateur</h1> #}
+
+{{ include ("registration/register.html.twig")}}
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Nouvel publication
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Création d'une publication</h1> #}
+
+{{ include ("publication/_form.html.twig")}}
+</div>
+</div><br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

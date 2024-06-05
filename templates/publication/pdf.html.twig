@@ -1,0 +1,100 @@
+<style>
+.publication-pdf {
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.publication-pdf h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.publication-pdf strong {
+    font-weight: bold;
+}
+
+.publication-pdf .card-body {
+    margin-top: 20px;
+        text-align: center;
+
+}
+
+.publication-pdf .row {
+    margin-bottom: 10px;
+}
+
+.publication-pdf .text-bold {
+    font-weight: bold;
+}
+
+.publication-pdf .text-justify {
+    text-align: justify;
+}
+
+.publication-pdf .text-right {
+    text-align: center;
+}
+
+.publication-pdf .lien-donnees {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.publication-pdf .lien-donnees a {
+    display: inline-block;
+    text-align: center;
+}
+.justify-text {
+    text-align: justify;
+}
+
+
+
+
+</style>
+
+<div class="card publication-pdf">
+    <div class="card-header">
+        <h1 class="card-title text-center text-bold">{{ publication.titre }}</h1>
+    </div>
+    <div class="card-body custom-padding">
+        <div class="row">
+            <div class="col-sm-4"><strong>Auteur :</strong></div>
+            <div class="col-sm-8">{{ publication.auteur }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>Autres auteurs :</strong></div>
+            <div class="col-sm-8">{{ publication.autres_auteurs }}</div>
+        </div>
+        {# <div class="row">
+            <div class="col-sm-4"><strong>Autres auteurs :</strong></div>
+            <div class="col-sm-8">
+                {% for auteur in publication.auteurs %}
+                {{ auteur.nom_prenom }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+        </div> #}
+        <div class="row">
+            <div class="col-sm-4"><strong>Détails :</strong></div>
+            <div class="col-sm-8">{{ publication.details }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>Date de publication :</strong></div>
+            <div class="col-sm-8">{{ publication.date_publication|date('Y-m-d') }}</div>
+        </div>
+        <div class="row">
+    <div class="col-sm-4"><strong>Résumé :</strong></div>
+    <div class="col-sm-8 justify-text">{{ publication.resume }}</div>
+</div>
+
+        <div class="row">
+            <div class="col-sm-4"><strong>Lien de données :</strong></div>
+            <div class="col-sm-8 text-right"><a href="{{ publication.lien_donnees }}">{{ publication.lien_donnees }}</a></div>
+        </div>
+    </div>
+</div>
+

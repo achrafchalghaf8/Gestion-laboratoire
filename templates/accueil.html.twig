@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+ bienvenue!
+{% endblock %}
+  	
+
+{% block body %}
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="{{ asset('uploads/' ~ laboratoire.image) }}" alt="Image de laboratoire" style="display: block; margin: 0 auto; width: 100%; padding: 0;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            
+        </div>
+    </div>
+  
+           <br><br> <h2>Notre laboratoire</h2>
+<div style="text-align: justify; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; padding: 10px; margin: 10px;">
+  <p style="text-indent: 20px;">{{ laboratoire.definition }}</p>
+</div>
+
+
+            <hr>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>Actions</h3>
+            <p>
+                                     
+                <a href="{{ path('laboratoire_edit', { id: laboratoire.id }) }}" class="btn btn-primary">Modifier</a> 
+            
+                {% endif %} 
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+  <h2 class="text-center">Actualités</h2>
+  <hr>
+  <div class="actualites-carousel">
+    {% for act in actualites|sort((a, b) => b.date <=> a.date) %}
+      <div class="card">
+        <a href="{{ path('actualite_show', {id: act.id}) }}">
+          <img class="card-img-top" src="{{ asset('uploads/' ~ act.image) }}" alt="Image de l'actualite">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ act.titre }}</h5>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="card-footer">
+          <div class="d-flex justify-content-between">
+            <div class="text-muted">
+              {{ act.date|date('d/m/Y') }}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{# <br>
+  <div class="text-center">
+    <button class="btn btn-secondary" id="btn-more" onclick="toggleActualites()">Voir plus d'actualités</button>
+  </div>
+</div> #}
+        
+<style>
+.card {
+  width: 100%;
+  height: 100%;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
+}
+.actualites-carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card {
+  flex: 0 0 auto;
+  margin-right: 20px;
+  width: 300px;
+}
+
+.card {
+  height: 300px; /* Hauteur de la card */
+  display: flex; /* Affiche les éléments en ligne */
+  flex-direction: column; /* Affiche les éléments en colonne */
+  justify-content: space-between; /* Place les éléments à l'extrémité supérieure et inférieure de la card */
+}
+
+.card-body {
+  height: 100%; /* Hauteur de la card-body */
+  display: flex; /* Affiche les éléments en ligne */
+  flex-direction: column; /* Affiche les éléments en colonne */
+  justify-content: space-between; /* Place les éléments à l'extrémité supérieure et inférieure de la card-body */
+}
+
+.card-title {
+  margin-top: auto; /* Place le titre en haut de la card-body */
+}
+</style>
+
+{% block javascripts %}
+  <script>
+    function toggleActualites() {
+      var actualites = document.getElementById("actualites").children;
+      var btn = document.getElementById("btn-more");
+      if (btn.innerHTML === "Voir plus d'actualités") {
+        for (var i = 3; i < actualites.length; i++) {
+          actualites[i].classList.remove("d-none");
+        }
+        btn.innerHTML = "Voir moins d'actualités";
+      } else {
+        for (var i = 3; i < actualites.length; i++) {
+          actualites[i].classList.add("d-none");
+        }
+        btn.innerHTML = "Voir plus d'actualités";
+      }
+    }
+  </script>
+  
+
+{% endblock %}
+</div></div>
+  {% include 'footer.html.twig' %}
+{% endblock %}
+

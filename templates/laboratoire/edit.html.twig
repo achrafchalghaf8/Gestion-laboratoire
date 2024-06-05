@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier Page accueil laboratoire
+{% endblock %}
+
+{% block body %}
+
+	<h1>Modification de la Page accueil laboratoire</h1>
+
+{{ include ("laboratoire/_form.html.twig",{valeurBtnSubmit:"Mettre à jour la page d'accueil"})}}
+</div>
+</div>
+</div>
+<br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

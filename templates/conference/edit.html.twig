@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier d'une conference
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification d'une conference</h1> #}
+
+{{ include ("conference/_form.html.twig",{valeurBtnSubmit:"Mettre à jour la conférence"})}}
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}

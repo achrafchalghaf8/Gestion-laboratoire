@@ -1,0 +1,6 @@
+    <p>Bonjour {{ reservation.demandeur.nom_prenom }},</p>
+    <p>Nous vous confirmons que votre réservation du {{ reservation.date_debut|date('d/m/Y') }} au {{ reservation.date_fin|date('d/m/Y') }} de {{ reservation.materiel}}  a bien été validée.</p>
+    <p>Vous pouvez consulter les détails de votre réservation sur notre site.</p>
+    <p>Cordialement,</p>
+    <p>L'équipe de notre site</p>
+

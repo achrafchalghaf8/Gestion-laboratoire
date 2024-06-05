@@ -1,0 +1,21 @@
+
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Nouvel matériel
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+{% block body %}
+
+	{# <h1>Création d'un materiel</h1> #}
+
+{{ include ("materiel/_form.html.twig")}}
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}

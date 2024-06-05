@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier informations sur notre équipe
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification des informations sur notre équipe</h1> #}
+
+{{ include ("equipe/_form.html.twig",{valeurBtnSubmit:"Mettre à jour infos"})}}
+</div></div><br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}contacts{% endblock %}
+
+{% block body %}
+
+<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<style>
+			body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #333333;
+			text-align: center;
+			margin-top: 50px;
+		}
+		table {
+			margin: auto;
+			border-collapse: collapse;
+			width: 80%;
+			margin-top: 30px;
+			margin-bottom: 50px;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		a {
+			color: #4CAF50;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #333333;
+			text-decoration: underline;
+		}
+		.search-box {
+			text-align: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+		#search-input {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			width: 60%;
+			font-size: 16px;
+			color: #333333;
+		}
+		.edit-link {
+			color: #3A6BF9;
+			text-decoration: none;
+			margin-right: 10px;
+		}
+		.delete-link {
+			color: #ff4d4d;
+			text-decoration: none;
+		}
+		.fa-edit:before {
+			content: "\f044";
+			margin-right: 5px;
+			color: #3A6BF9;
+		}
+		.fa-trash:before {
+			content: "\f2ed";
+			margin-right: 5px;
+			color: #ff4d4d;
+		}
+		
+
+</style>
+
+
+	<h1>Gestion des demandes de collaboration</h1>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Recherche d'un demande de collaboration">
+  </div>
+  
+	<table>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Email</th>
+				<th>Sujet</th>
+				<th>Date ajout</th>
+				<th>Actions</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for cont in contacts %}
+				<tr>
+					<td style="width: 200px;">{{ cont.nom }}</td>
+					<td style="width: 100px;">{{ cont.email }}</td>
+					<td style="width: 200px;">{{ cont.sujet }}</td>
+					<td style="width: 200px;">{{ cont.date_contact|date('Y-m-d') }}</td>
+
+<td style="width: 100px;">
+  <a style="color: green;" href="{{ path('contact_detail', {id: cont.id}) }}" style="display: inline-block;"><i class="fas fa-eye"></i></a>
+  <a href="{{ path('contact_delete', {id: cont.id}) }}" style="display: inline-block;" onclick="return confirm('Etes vous sur de supprimer cette conference ?')"><i class="fas fa-trash"></i></a>
+</td>
+
+
+					
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	
+
+<script>
+const searchInput = document.querySelector('#search-input');
+
+searchInput.addEventListener('input', () => {
+  const filter = searchInput.value.toLowerCase().split(' ');
+  const rows = document.querySelectorAll('tbody tr');
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    let match = true;
+
+    filter.forEach(word => {
+      let wordMatch = false;
+      cells.forEach(cell => {
+        if (cell.textContent.toLowerCase().includes(word)) {
+          wordMatch = true;
+        }
+      });
+      match = match && wordMatch;
+    });
+
+    row.style.display = match ? '' : 'none';
+  });
+});
+	</script>
+	</div></div></div>
+<br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

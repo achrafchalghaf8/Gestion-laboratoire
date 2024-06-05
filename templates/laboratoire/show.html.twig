@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+ bienvenue!
+{% endblock %}
+  	
+
+{% block body %}
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="{{ asset('uploads/' ~ laboratoire.image) }}" alt="Image de laboratoire" style="display: block; margin: 0 auto; width: 50%; padding: 0;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            
+        </div>
+    </div>
+    
+           <br><br> <h2>Notre laboratoire</h2>
+<div style="text-align: justify; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; padding: 10px; margin: 10px;">
+  <p style="text-indent: 20px;">{{ laboratoire.definition }}</p>
+</div>
+
+
+            <hr>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>Actions</h3>
+            <p>
+                                     
+                <a href="{{ path('laboratoire_edit', { id: laboratoire.id }) }}" class="btn btn-primary">Modifier</a> 
+               
+                {% endif %} 
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<br><br>
+{% include 'footer.html.twig' %}
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ publication.titre }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ publication.titre }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Auteur :</strong></div>
+                            <div class="col-sm-8">{{ publication.auteur }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Date de publication :</strong></div>
+                            <div class="col-sm-8">{{ publication.date_publication|date('Y-m-d') }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Résumé :</strong></div>
+                            <div class="col-sm-8">{{ publication.resume }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Lien de données :</strong></div>
+                            <div class="col-sm-8"><a href="{{ publication.lien_donnees }}">{{ publication.lien_donnees }}</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('publication_edit',{id:publication.id}) }}" class="btn btn-primary mr-2">Modifier</a>
+                    <a href="{{ path('publication_delete',{id:publication.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sur de supprimer cette publication?')">Supprimer</a>
+                    {% endif %}
+                    <a href="{{ path('app_publication') }}" class="btn btn-secondary float-right">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div> <br><br>
+{% include 'footer.html.twig' %}
+{% endblock %}

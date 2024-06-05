@@ -1,0 +1,154 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+<style>
+   /* Style the form container */
+   .form-container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #ccc;
+      background-color: #f9f9f9;
+   }
+
+   /* Style the form fields */
+   .form-container input[type="text"],
+   .form-container input[type="number"], 
+   .form-container input[type="email"],
+   .form-container input[type="file"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+   }
+
+   /* Style the submit button */
+   .form-container input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+   }
+
+   /* Clear floats after the form */
+   .form-container::after {
+      content: "";
+      clear: both;
+      display: table;
+   }
+
+   h1 {
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+   }
+
+   .form-description {
+      height: 250px; /* ajuster la hauteur en fonction de vos besoins */
+   }
+
+   .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-gap: 10px;
+   }
+
+   .form-container label.checkbox-inline {
+      margin-right: 10px;
+   }
+
+</style>
+<div class="form-container">
+    {{ form_start(formProjet, {'method': 'PUT'})}}
+    
+   <div class="form-group">
+    {{ form_label(formProjet.titre, 'Titre') }}
+    {{ form_widget(formProjet.titre, { 'attr': { 'placeholder': 'Désignation', 'class': 'form-control' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formProjet.titre) }}</span>
+</div>
+    
+    <div class="form-group">
+        <label>Description du projet:</label>
+        {{ form_widget(formProjet.description, {'attr': {'class': 'form-control form-description', 'placeholder': "Description du projet", 'style': 'width: 100%; margin: 0 auto;', 'rows': '5' }}) }}
+            <span class="error" style="color: red;">{{ form_errors(formProjet.description) }}</span>
+
+    </div>
+    
+    <div class="form-group row mb-3">
+        <div class="col-md-6">
+            <label for="{{ formProjet.date_debut.vars.id }}">Date de début</label>
+            {{ form_widget(formProjet.date_debut, {'attr': {'placeholder': 'Date de début', 'class': 'form-control', 'type': 'date'}, 'label_attr': {'class': 'visually-hidden'}}) }}
+        </div>
+        <div class="col-md-6">
+            <label for="{{ formProjet.date_fin.vars.id }}">Date de fin</label>
+            {{ form_widget(formProjet.date_fin, {'attr': {'placeholder': 'Date de fin', 'class': 'form-control', 'type': 'date'}, 'label_attr': {'class': 'visually-hidden'}}) }}
+            <span class="error" style="color: red;">{{ form_errors(formProjet.date_fin) }}</span>
+
+        </div>
+
+   
+
+    </div>
+    
+   <div class="form-group">
+    {{ form_label(formProjet.chercheurs, 'Chercheurs:', {'label_attr': {'class': 'checkbox-inline'}}) }}
+    <div class="checkbox-grid">
+        {{ form_widget(formProjet.chercheurs, {'attr': {'class': 'form-control'}, 'multiple': true}) }}
+    </div>
+        <span style="color: red;">{{ form_errors(formProjet.chercheurs) }}</span>
+
+</div>
+
+
+     {# <div>
+      {{ form_label(formProjet.chercheurs) }}
+      {{ form_widget(formProjet.chercheurs) }}
+      {% if form_errors(formProjet.chercheurs) %}
+        <span style="color: red;">{{ form_errors(formProjet.chercheurs) }}</span>
+      {% endif %}
+    </div> #}
+    
+    <div class="form-group">
+        <label>Description du résultats:</label>
+        {{ form_widget(formProjet.description_resultat, {'attr': {'class': 'form-control form-description', 'placeholder': "Description de la résultat du projet", 'style': 'width: 100%; margin: 0 auto;', 'rows': '5' }}) }}
+                    <span class="error" style="color: red;">{{ form_errors(formProjet.description_resultat) }}</span>
+
+    </div>
+    
+    <div class="form-group">
+    {{ form_label(formProjet.image, 'Image') }}
+    {{ form_widget(formProjet.image, { 'attr': { 'class': 'form-control-file' } }) }}
+    <span class="error" style="color: red;">{{ form_errors(formProjet.image) }}</span>
+</div>
+
+    <input type="submit" value="{{valeurBtnSubmit|default("Ajouter projet") }}" class="btn btn-primary" formnovalidate>
+    
+    {{ form_end(formProjet)}}
+</div>
+</div>
+{# //  <script>
+// const form = document.querySelector('.form-container form');
+// form.addEventListener('submit', (event) => {
+//   if (!form.checkValidity()) {
+//     event.preventDefault();
+
+//     Swal.fire({
+//       icon: 'error',
+//       title: 'Remplir toutes les champs, s\'il vous plaît!',
+//     });
+//   }
+// });
+
+
+
+// </script>
+ #}

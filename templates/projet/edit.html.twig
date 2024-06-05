@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier d'un projt
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification d'un projet</h1> #}
+
+{{ include ("projet/_form.html.twig",{valeurBtnSubmit:"Mettre à jour du projet"})}}
+</div></div> <br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

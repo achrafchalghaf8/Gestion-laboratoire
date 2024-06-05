@@ -1,0 +1,15 @@
+
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}modifier role 
+{% endblock %}
+
+{% block body %}
+
+	<h1>Modification d'un role</h1>
+
+{{ include ("role/form.html.twig",{valeurBtnSubmit:"Mettre a jour du role"})}}
+
+{% endblock %}

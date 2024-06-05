@@ -1,0 +1,136 @@
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+<style>
+    /* Style the form container */
+    .form-container {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+        background-color: #f9f9f9;
+    }
+
+    /* Style the form fields */
+    .form-container input[type="text"], 
+    .form-container input[type="email"] ,
+    .form-container input[type="password"],
+    .form-container input[type="number"]
+{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style the submit button */
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    /* Clear floats after the form */
+    .form-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    h1 {
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+   
+</style>
+<div class="form-container">
+  
+  {{ form_start(registrationForm) }}
+      
+    <div>
+      {{ form_label(registrationForm.nom_prenom) }}
+      {{ form_widget(registrationForm.nom_prenom) }}
+      {% if form_errors(registrationForm.nom_prenom) %}
+        <span style="color: red;">{{ form_errors(registrationForm.nom_prenom) }}</span>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form_label(registrationForm.telephone) }}
+      {{ form_widget(registrationForm.telephone) }}
+      {% if form_errors(registrationForm.telephone) %}
+        <span style="color: red;">{{ form_errors(registrationForm.telephone) }}</span>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form_label(registrationForm.email) }}
+      {{ form_widget(registrationForm.email) }}
+      {% if form_errors(registrationForm.email) %}
+        <span style="color: red;">{{ form_errors(registrationForm.email) }}</span>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form_label(registrationForm.roles) }}
+      {{ form_widget(registrationForm.roles) }}
+      {% if form_errors(registrationForm.roles) %}
+        <span style="color: red;">{{ form_errors(registrationForm.roles) }}</span>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form_label(registrationForm.plainPassword, 'Password: doit être composé de 6 chiffres dont au moins 1 lettre et 1 chiffre') }}
+      {{ form_widget(registrationForm.plainPassword) }}
+      {% if form_errors(registrationForm.plainPassword) %}
+        <span style="color: red;">{{ form_errors(registrationForm.plainPassword) }}</span>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form_widget(registrationForm.agreeTerms) }}
+      {{ form_label(registrationForm.agreeTerms, 'I agree to the terms') }}
+      {% if form_errors(registrationForm.agreeTerms) %}
+        <span style="color: red;">{{ form_errors(registrationForm.agreeTerms) }}</span>
+      {% endif %}
+    </div>
+
+    <input type="submit" class="form-button" value="{{ valeurBtnSubmit|default("Ajouter Utilisateur") }}" formnovalidate>
+      
+  {{ form_end(registrationForm) }}
+  
+</div>
+
+ 
+{# 
+<script>
+  const form = document.querySelector('.form-container form');
+  form.addEventListener('submit', (event) => {
+    const nomPrenom = form.querySelector('#{{ registrationForm.nom_prenom.vars.id }}');
+    const telephone = form.querySelector('#{{ registrationForm.telephone.vars.id }}');
+    const email = form.querySelector('#{{ registrationForm.email.vars.id }}');
+    const roles = form.querySelector('#{{ registrationForm.roles.vars.id }}');
+    const plainPassword = form.querySelector('#{{ registrationForm.plainPassword.vars.id }}');
+    const agreeTerms = form.querySelector('#{{ registrationForm.agreeTerms.vars.id }}');
+
+    if (!nomPrenom.value || !telephone.value || !email.value || !roles.value || !plainPassword.value || !agreeTerms.checked) {
+      event.preventDefault();
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Remplir tous les champs, s\'il vous plaît!',
+      });
+    }
+  });
+</script> #}

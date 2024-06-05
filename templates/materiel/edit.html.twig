@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modifier materiel
+{% endblock %}
+
+{% block body %}
+
+	{# <h1>Modification d'un materiel</h1> #}
+
+{{ include ("materiel/_form.html.twig",{valeurBtnSubmit:"Mettre à jour le matériel"})}}
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}

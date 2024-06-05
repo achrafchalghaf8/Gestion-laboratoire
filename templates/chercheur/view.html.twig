@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+{% block title %}chercheurs {% endblock %}
+{% block body %}
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-q0ZYA1GjGMv2QWgfH8yCD3eObGkq1VQBOHjUd7nUcF6u/7VfLkNzK9VlYAzPTzRDrxozj4sb4NG+04ZyyPbZwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+	<style>
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.search-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#search-input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product {
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  text-align: center;
+}
+
+.product-image img {
+  max-width: 100%;
+}
+
+.product-info h3 {
+  margin-top: 0;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.product-info p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+
+
+.btn:hover {
+  background-color: #0062cc;
+}
+.card-img-top {
+  height: 350px; /* Taille de l'image */
+  object-fit: cover; /* Redimensionner l'image pour qu'elle couvre la totalité de l'élément parent */
+}
+
+
+ .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  text-align: center; /* Centrer le contenu horizontalement */
+}
+
+
+
+.card-title {
+  margin-top: auto; /* Pousser le nom_prenom en haut de la div card-body */
+}
+
+
+
+
+	</style>
+  
+<div class="container">
+  <h1>Liste de chercheurs</h1>
+
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Recherche d'un chercheur">
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="search-results">
+    {% for cher in chercheurs %}
+      <div class="col mb-4">
+        <div class="card h-100">
+          <a href="{{ path('chercheur_show', {id: cher.id}) }}">
+            <img src="{{ asset('uploads/' ~ cher.image) }}" class="card-img-top" alt="Chercheur Image">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">{{ cher.compte }}</h5>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<script>
+  const searchInput = document.querySelector('#search-input');
+  const searchResults = document.querySelector('#search-results');
+  const cards = document.querySelectorAll('.col.mb-4');
+  
+  searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    // Clear previous search results
+    searchResults.innerHTML = '';
+    
+    // Filter and display matching cards
+    cards.forEach(card => {
+      const nomPrenom = card.querySelector('.card-title').textContent.toLowerCase();
+      
+      if (nomPrenom.includes(searchTerm)) {
+        card.style.display = 'block';
+        searchResults.appendChild(card);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script>
+</div>
+</div><br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}
+

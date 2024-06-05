@@ -1,0 +1,23 @@
+
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Nouvel Actualité
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+{% block body %}
+
+	{# <h1>Création d'une actualite</h1> #}
+
+{{ include ("actualite/_form.html.twig")}}
+</div>
+</div>
+</div>
+<br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

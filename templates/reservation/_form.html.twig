@@ -1,0 +1,132 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+</head>
+<style>
+    /* Style the form container */
+    .form-container {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+        background-color: #f9f9f9;
+    }
+
+    /* Style the form fields */
+    .form-container label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"], 
+    .form-container input[type="email"],
+    .form-container select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style the submit button */
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    /* Clear floats after the form */
+    .form-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    
+    h1 {
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+.date-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.date-input-container input[type="number"] {
+    width: 50px;
+    margin-right: 5px;
+}
+
+</style>
+
+{% if app.flashes('warning') is not empty %}
+    <div class="alert alert-warning">
+        Le matériel est déjà réservé pour cette période
+    </div>
+{% endif %}
+
+<div class="form-container">
+    
+    {{ form_start(formReservation, {'method': 'PUT'}) }}
+    
+    <label for="{{ formReservation.materiel.vars.id }}">Matériel à réserver</label>
+    {{ form_widget(formReservation.materiel) }}
+    
+    <label for="{{ formReservation.demandeur.vars.id }}">Demandeur pour l'emprunt</label>
+    {{ form_widget(formReservation.demandeur) }}
+    
+    {# <label for="{{ formReservation.num_tel.vars.id }}">Numéro de téléphone</label>
+    {{ form_widget(formReservation.num_tel) }} #}
+
+    
+    <label for="{{ formReservation.date_debut.vars.id }}">Date de début</label>
+<div class="date-input-container">
+    {{ form_widget(formReservation.date_debut.day) }}
+    {{ form_widget(formReservation.date_debut.month) }}
+    {{ form_widget(formReservation.date_debut.year) }}
+</div>
+
+<label for="{{ formReservation.date_fin.vars.id }}">Date de fin</label>
+<div class="date-input-container">
+
+    {{ form_widget(formReservation.date_fin.day) }}
+    {{ form_widget(formReservation.date_fin.month) }}
+    {{ form_widget(formReservation.date_fin.year) }}
+
+</div>
+
+    <span class="error" style="color: red;">{{ form_errors(formReservation.date_fin) }}</span>
+
+
+
+    <input type="submit" value="{{ valeurBtnSubmit|default("Ajouter réservation") }}" class="btn btn-primary" formnovalidate>
+
+    {{ form_end(formReservation) }}
+</div>
+{# // <script>
+//   const form = document.querySelector('.form-container form');
+//   form.addEventListener('submit', (event) => {
+//     const materiel = form.querySelector('#{{ formReservation.materiel.vars.id }}');
+//     const demandeur = form.querySelector('#{{ formReservation.demandeur.vars.id }}');
+//     const dateDebut = form.querySelector('#{{ formReservation.date_debut.vars.id }}');
+//     const dateFin = form.querySelector('#{{ formReservation.date_fin.vars.id }}');
+    
+//     if (!materiel.value || !demandeur.value || !dateDebut.value || !dateFin.value) {
+//       event.preventDefault();
+      
+//       Swal.fire({
+//         icon: 'error',
+//         title: 'Remplir tous les champs, s\'il vous plaît!',
+//       });
+//     }
+//   });
+// </script> #}

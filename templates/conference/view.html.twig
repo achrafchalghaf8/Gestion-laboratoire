@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}conferences{% endblock %}
+
+{% block body %}
+
+<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<style>
+			body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #333333;
+			text-align: center;
+			margin-top: 50px;
+		}
+		a {
+			color: #4CAF50;
+			text-decoration: none;
+		}
+    .btn i {
+  color: white;
+}
+
+		a:hover {
+			color: #333333;
+			text-decoration: underline;
+		}
+		.search-box {
+			text-align: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+		#search-input {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			width: 60%;
+			font-size: 16px;
+			color: #333333;
+		}
+		.edit-link {
+			color: #3A6BF9;
+			text-decoration: none;
+			margin-right: 10px;
+		}
+		.delete-link {
+			color: #ff4d4d;
+			text-decoration: none;
+		}
+		.fa-edit:before {
+			content: "\f044";
+			margin-right: 5px;
+			color: white;
+		}
+    
+		.fa-trash:before {
+			content: "\f2ed";
+			margin-right: 5px;
+			color: white;
+    }
+    .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  text-align: center; /* Centrer le contenu horizontalement */
+}
+
+
+
+.card-title {
+  margin-top: auto; /* Pousser le nom_prenom en haut de la div card-body */
+}
+
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+/* .card {
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+} */
+.card-columns {
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+
+.card {
+  flex-basis: 100.33%;
+  margin-bottom: 30px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.card {
+        text-align: center;
+    }
+    
+    .card-img-top {
+        object-fit: cover;
+        height: 200px;
+    }
+    
+    .card-body {
+        padding: 10px;
+    }
+    
+    .card-footer {
+        text-align: center;
+    }
+    
+    .card-footer .btn {
+        margin: 5px;
+    }
+
+
+
+
+</style>
+<div class="agenda">
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Recherche d'une conférence">
+  </div>
+  <div class="card-columns">
+    {% for conf in conferences %}
+      <div class="card">
+        <a href="{{ path('conference_show', {id: conf.id}) }}">
+          <img class="card-img-top" src="{{ asset('uploads/' ~ conf.image) }}" alt="Image de la conférence">
+        </a>
+        <div class="card-body">
+          <h3 class="card-title">{{ conf.nom_conference }}</h3>
+          <p class="card-text"><strong>Date:</strong> {{ conf.date_debut|date('Y-m-d') }}</p>
+          <p class="card-text"><strong>Lieu:</strong> {{ conf.lieu }}</p>
+          <p class="card-text"><strong>Domaine:</strong> {{ conf.domaine }}</p>
+          <p class="card-text"><strong>Sponsors:</strong> {{ conf.sponseurs }}</p>
+          <p class="card-text"><strong>Nombre de participants:</strong> {{ conf.nb_participants }}</p>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="card-footer">
+        
+          <a href="{{ path('conference_edit', {id: conf.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+          <a href="{{ path('conference_delete', {id: conf.id}) }}" onclick="return confirm('Etes-vous sûr de supprimer cette conférence ?')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+          <a href="{{ path('conference_show', {id: conf.id}) }}" class="btn btn-secondary"><i class="fas fa-eye"></i></a>
+          
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+const searchInput = document.querySelector('#search-input');
+
+searchInput.addEventListener('input', () => {
+  const filter = searchInput.value.toLowerCase();
+  const inputWords = filter.split(" ");
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    const title = card.querySelector('.card-title').textContent.toLowerCase();
+    const date = card.querySelector('.card-text:nth-of-type(1)').textContent.toLowerCase();
+    const lieu = card.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
+    const domaine = card.querySelector('.card-text:nth-of-type(3)').textContent.toLowerCase();
+    const sponsors = card.querySelector('.card-text:nth-of-type(4)').textContent.toLowerCase();
+    const participants = card.querySelector('.card-text:nth-of-type(5)').textContent.toLowerCase();
+    
+    let foundWords = 0;
+    
+    inputWords.forEach(word => {
+      const match = title.includes(word) || date.includes(word) || lieu.includes(word) || domaine.includes(word) || sponsors.includes(word) || participants.includes(word);
+      if (match) {
+        foundWords++;
+      }
+    });
+
+    card.style.display = foundWords === inputWords.length ? '' : 'none';
+  });
+});
+
+</script>
+</div></div></div><br><br>
+
+{% include 'footer.html.twig' %}
+
+{% endblock %}

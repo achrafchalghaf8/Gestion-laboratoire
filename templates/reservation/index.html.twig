@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}réservations{% endblock %}
+
+{% block body %}
+
+<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<style>
+			body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #333333;
+			text-align: center;
+			margin-top: 50px;
+		}
+		table {
+			margin: auto;
+			border-collapse: collapse;
+			width: 88%;
+			margin-top: 30px;
+			margin-bottom: 50px;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		a {
+			color: #4CAF50;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #333333;
+			text-decoration: underline;
+		}
+		.search-box {
+			text-align: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+		#search-input {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			width: 60%;
+			font-size: 16px;
+			color: #333333;
+		}
+		.edit-link {
+			color: #3A6BF9;
+			text-decoration: none;
+			margin-right: 10px;
+		}
+		.delete-link {
+			color: #ff4d4d;
+			text-decoration: none;
+		}
+		.fa-edit:before {
+			content: "\f044";
+			margin-right: 5px;
+			color: #3A6BF9;
+		}
+		.fa-trash:before {
+			content: "\f2ed";
+			margin-right: 5px;
+			color: #ff4d4d;
+		}
+		/* <style>
+  caption {
+    background-color: #F7B44E;
+    padding: 5px;
+    font-weight: bold;
+  }
+  .color-rectangle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #F7B44E;
+    margin-right: 5px;
+  } */
+	
+	</style>
+<body>
+  <h1>Gestion des Réservations</h1>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Recherche d'une reservation">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center;">Matériel</th>
+        <th>Demandeur</th>
+        <th>Date debut</th>
+        <th>Date fin</th>
+        <th>Actions</th>
+        <th style="text-align: center;">Accepter</th>
+<th style="text-align: center;">Refuser</th>
+
+		<th>Retourné</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for res in reservations|sort((a, b) => b.date_debut.timestamp() - a.date_debut.timestamp()) %}
+      <tr>
+	 
+
+        <td style="width: 150px; text-align: center;">{{ res.materiel }}</td>
+        <td>{{ res.demandeur }}</td>
+        <td>{{ res.date_debut|date('Y-m-d ') }}</td>
+        <td>{{ res.date_fin|date('Y-m-d ') }}</td>
+        <td>
+          <a href="{{ path('reservation_edit', {id: res.id}) }}"><i class="fas fa-edit"></i></a>
+          <a href="{{ path('reservation_delete', {id: res.id}) }}" onclick="return confirm('Etes vous sur de annuler cette reservation??')"><i class="fas fa-trash"></i></a>
+          <a href="{{ path('reservation_show', {id: res.id}) }}" style="color: green;"><i class="fas fa-eye"></i></a>
+        </td>
+        <td style="width: 150px; text-align: center;">
+  {% if res.valide is null %}
+  <form method="POST" action="{{ path('valider_reservation', {'id': res.id}) }}">
+    <button type="submit" class="btn btn-success">
+      <i class="fa fa-check"></i> Accepter
+    </button>
+  </form>
+  {% endif %}
+  {% if res.valide %}
+  Déjà acceptée
+  {% endif %}
+</td>
+
+       <td style="width: 150px; text-align: center;">
+  {% if res.valide is null %}
+    <form method="POST" action="{{ path('refuser_reservation', {'id': res.id}) }}">
+      <div id="refuser-section-{{ res.id }}">
+        <button type="button" class="btn btn-danger btn-refuser" onclick="hideRefuserButton({{ res.id }})">
+          <i class="fa fa-times"></i> Refuser
+        </button>
+      </div>
+      <div id="textarea-section-{{ res.id }}" style="display:none;">
+        <h6>Raison de refus:</h6>
+        <textarea id="textarea-{{ res.id }}" name="raison_refus" required></textarea>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+
+
+
+
+          
+          {% endif %}
+		{% if res.valide is not null and not res.valide %}
+  Déjà refusée
+{% endif %}
+
+
+
+
+        </td>
+
+		
+		<td>
+      <form method="POST" action="{{ path('retour_reservation', {'id': res.id}) }}">
+        <div class="form-check">
+<input class="form-check-input" type="checkbox" name="retourne" value="1" id="checkbox-{{ res.id }}" {% if res.retourne %}checked{% endif %} {% if not res.valide or res.date_debut > date() %}disabled{% endif %}>
+          <label class="form-check-label" for="checkbox-{{ res.id }}">Retourné</label>
+		
+{% if res.date_fin < date() and not res.retourne and (res.valide is not null and res.valide) %}
+  <i class="fas fa-exclamation-circle text-danger"></i>
+{% endif %}
+
+
+
+
+
+        </div>
+        <button type="submit" class="btn btn-primary mt-1">Enregistrer</button>
+      </form>
+    </td>
+      </tr>
+      
+ 
+  {% endfor %}
+    </tbody>
+  </table>
+</body>
+
+
+<script>
+const searchInput = document.querySelector('#search-input');
+
+searchInput.addEventListener('input', () => {
+  const filter = searchInput.value.toLowerCase().split(' ');
+  const rows = document.querySelectorAll('tbody tr');
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    let match = true;
+
+    filter.forEach(word => {
+      let wordMatch = false;
+      cells.forEach(cell => {
+        if (cell.textContent.toLowerCase().includes(word)) {
+          wordMatch = true;
+        }
+      });
+      match = match && wordMatch;
+    });
+
+    row.style.display = match ? '' : 'none';
+  });
+});
+
+ function hideRefuserButton(id) {
+  document.getElementById('refuser-section-' + id).style.display = 'none';
+  document.getElementById('textarea-section-' + id).style.display = 'block';
+}
+
+</script>
+
+	</div></div> <br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}

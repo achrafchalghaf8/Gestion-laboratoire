@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}vos réservations{% endblock %}
+
+{% block body %}
+
+<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<style>
+			body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #333333;
+			text-align: center;
+			margin-top: 50px;
+		}
+		table {
+			margin: auto;
+			border-collapse: collapse;
+			width: 80%;
+			margin-top: 30px;
+			margin-bottom: 50px;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		a {
+			color: #4CAF50;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #333333;
+			text-decoration: underline;
+		}
+		.search-box {
+			text-align: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+		#search-input {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			width: 60%;
+			font-size: 16px;
+			color: #333333;
+		}
+	/* Style de la liste des réservations */
+  .reservations-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Style de chaque réservation */
+  .reservation {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    flex-basis: 300px;
+  }
+
+  .reservation h2 {
+    margin-top: 0;
+  }
+
+  .reservation p {
+    margin: 0;
+  }
+
+  /* Style de la recherche */
+  .search-box {
+    margin-bottom: 20px;
+  }
+
+  /* Style du bouton pour voir la réservation */
+  .reservation a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    /* background-color: #4CAF50; */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  /* .reservation a:hover {
+    background-color: #3e8e41;
+  } */
+
+	
+	</style>
+<head>
+  <title>Les réservations</title>
+</head>
+<h1>Les réservations</h1>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Recherche d'une réservation">
+</div>
+
+<ul class="reservations-list">
+  {% for r in reservations %}
+  {% if r.demandeur == app.user %}
+    <li class="reservation" style="border: 1px solid gray; padding: 20px; margin-bottom: 20px;">
+      <h2>Réservation de {{ r.materiel }}</h2>
+      <p><strong>Demandeur :</strong> {{ r.demandeur }}</p>
+      <p><strong>Date début :</strong> {{ r.date_debut|date('Y-m-d') }}</p>
+      <p><strong>Date fin :</strong> {{ r.date_fin|date('Y-m-d') }}</p>
+<a href="{{ path('reservation_show', {id: r.id}) }}" class="btn btn-primary"><span style="color: white;">Détails</span></a>
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+
+
+ 
+</body>
+
+<script>
+  const searchInput = document.querySelector('#search-input');
+
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    const publications = document.querySelectorAll('.publication');
+
+    publications.forEach(publication => {
+      const title = publication.querySelector('h2').textContent.toLowerCase();
+      const author = publication.querySelector('p:nth-of-type(1)').textContent.toLowerCase();
+      const date = publication.querySelector('p:nth-of-type(2)').textContent.toLowerCase();
+      const match = title.includes(filter) || author.includes(filter) || date.includes(filter);
+
+      publication.style.display = match ? '' : 'none';
+    });
+  });
+</script>
+</div></div> <br><br>
+{% include 'footer.html.twig' %}
+
+{% endblock %}
